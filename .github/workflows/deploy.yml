@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+# Trigger Conditions
+# Trigger the workflow on push events to the main branch
+# but only if index.html is modified
+# The workflow runs on every push
+# Only on the main branch
+# Only if index.html is modified
+
+on:
+push:
+  branches:
+    - main
+  paths:
+    - index.html
+
+# Uses least privilege principle
+# Required for GitHub Pages deployment
+permissions:
+  contents: read # to deploy to GitHub Pages
+  pages: write # to deploy to GitHub Pages
+  id-token: write # to authenticate with GitHub Pages
+
+# Concurrency to prevent multiple deployments at the same time
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+# Defines a job named deploy
+# Runs on a GitHub-hosted Ubuntu runner
+jobs:
+  deploy: 
+    runs-on: ububntu-latest
+
+# Clones the repository into the runner
+# Required so the workflow can access index.html
+    steps:
+      - name: Checkout repository
+      - uses: actions/checkout@v4
+
+    # Prepares the environment for GitHub Pages
+    # Sets required variables and authentication
+      - name: configure pages
+      - uses: actions/configure-pages@v5
+      with:
+        path: . # Root directory of the repository
+
+       # Packages the website files
+       # Uploads them as a deployment artifact
+       # ✔ path: . means:
+       # Upload everything in the repository root
+
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
+        # Takes the uploaded artifact
+        # ✔ Deploys it to GitHub Pages
+        # ✔ Makes the site publicly accessible
