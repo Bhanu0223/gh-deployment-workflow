@@ -29,7 +29,7 @@ concurrency:
 # Runs on a GitHub-hosted Ubuntu runner
 jobs:
   deploy: 
-    runs-on: ububntu-latest
+    runs-on: ubuntu-latest
 
 # Clones the repository into the runner
 # Required so the workflow can access index.html
