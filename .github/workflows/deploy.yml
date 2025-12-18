@@ -35,12 +35,12 @@ jobs:
 # Required so the workflow can access index.html
     steps:
       - name: Checkout repository
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
     # Prepares the environment for GitHub Pages
     # Sets required variables and authentication
       - name: configure pages
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v2
       with:
         path: . # Root directory of the repository
 
@@ -51,7 +51,7 @@ jobs:
 
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v1
 
         # Takes the uploaded artifact
         # ✔ Deploys it to GitHub Pages
